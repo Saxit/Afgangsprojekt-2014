@@ -4,9 +4,11 @@ using System.Collections;
 public class PlayerJumpScript : MonoBehaviour {
 
 	public float JumpSpeed = 300.0f;
+
+
 	// Use this for initialization
 	void Start () {
-	
+
 	}
 	
 	// Update is called once per frame
@@ -16,6 +18,8 @@ public class PlayerJumpScript : MonoBehaviour {
 	}
 
 	void Jump() {
+		if(
 		rigidbody.AddForce(Vector3.up *JumpSpeed);
+
 	}
 }
