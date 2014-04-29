@@ -18,8 +18,8 @@ public class PlayerJumpScript : MonoBehaviour {
 	}
 
 	void Jump() {
-		if(2 = 2) //Skal rettes
-		rigidbody.AddForce(Vector3.up * JumpSpeed);
+		if(JumpSpeed == 2.0f) //Skal rettes
+			rigidbody.AddForce(Vector3.up * JumpSpeed);
 
 	}
 }
