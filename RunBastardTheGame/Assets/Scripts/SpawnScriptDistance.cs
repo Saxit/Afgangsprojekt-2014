@@ -1,22 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SpawnScriptDistance : MonoBehaviour {
 
-    public GameObject[] obj;                        //Listen over mulige spawnobjekter
+    public List<GameObject> platformTypes;             //Listen over mulige spawnobjekter
     public GameObject endPlatform;                  //Den sidste platform i lvl
     public float distanceBetweenObjects = 10f;      //Hvor langt er der i afstand mellem de objekter der skal spawnes
     public int numberOfPlatforms = 10;              //Hvor mange platforme skal der spawnes i lvl
+    
     private GameObject _lastObject;                 //Det sidst spawnede objekt
     private int _spawnedPlatforms = 0;              //Delta antal spawnede platforme
     private bool _lvlEnd = false;                   //Check om lvl er slut
+    
 
 	// Use this for initialization
 	void Start () {
+        PoolSpawns();
         Spawn();
         Debug.Log("start");
 	
 	}
+
 	
 	// Update is called once per frame
 	void Update () {
@@ -40,18 +45,49 @@ public class SpawnScriptDistance : MonoBehaviour {
             {
                 SpawnEnding();
             }
-            
+
         }
 	}
 
+    private void PoolSpawns()
+    {
+ 
+        for (int i = 0; i < platformTypes.Count; i++)
+        {
+
+            platformTypes[i].SetActive(false);
+                    
+        }
+
+        Debug.Log(platformTypes.Count.ToString());
+    }
+
     /// <summary>
-    /// Spawner et random object fra obj-arrayet. Gemmer desuden objectet i en variabel
-    /// til brug for afstandsberegning
+    /// 
     /// </summary>
     private void Spawn()
     {
-        _lastObject = (GameObject) Instantiate(obj[Random.Range(0, obj.GetLength(0))], transform.position, Quaternion.identity);
-        _spawnedPlatforms++;
+        List<GameObject> platformOptions = new List<GameObject>();
+        bool found = false;
+
+         while (!found)
+         {
+            int i = Random.Range(0, platformTypes.Count);
+            Debug.Log(i.ToString());
+            if (!platformTypes[i].activeInHierarchy)
+            {
+                _spawnedPlatforms++;
+                _lastObject = platformTypes[i];
+                Debug.Log(_lastObject.transform.name);
+                platformTypes[i].transform.position = this.transform.position;
+                platformTypes[i].SetActive(true);
+                Instantiate(platformTypes[i], this.transform.position, Quaternion.identity);
+                found = true;
+            }
+        }
+
+        
+
     }
 
     /// <summary>

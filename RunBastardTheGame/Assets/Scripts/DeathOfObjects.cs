@@ -19,12 +19,14 @@ public class DeathOfObjects : MonoBehaviour {
         {
             //find parent til det gameobject der har ramt væggen, og ødelæg det.
             //Så bliver alt fjernet, hvis det er et child der rammer.
-            Destroy(other.gameObject.transform.parent.gameObject);
+            //Destroy(other.gameObject.transform.parent.gameObject);
+            other.gameObject.transform.parent.gameObject.SetActive(false);
         }
         else
         {
             //hvis der ikke er en parent
-            Destroy(other.gameObject);
+            //Destroy(other.gameObject);
+            other.gameObject.SetActive(false);
         }
         
 
