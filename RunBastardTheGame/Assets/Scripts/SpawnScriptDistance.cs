@@ -67,7 +67,6 @@ public class SpawnScriptDistance : MonoBehaviour {
     /// </summary>
     private void Spawn()
     {
-        List<GameObject> platformOptions = new List<GameObject>();
         bool found = false;
 
          while (!found)
