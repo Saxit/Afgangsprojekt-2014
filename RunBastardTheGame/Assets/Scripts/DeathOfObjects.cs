@@ -12,7 +12,6 @@ public class DeathOfObjects : MonoBehaviour {
             Debug.Break();
 
         }
-        Debug.Log("her");
 
         //
         if (other.gameObject.transform.parent)
