@@ -33,7 +33,7 @@ public class SpawnScriptTime : MonoBehaviour {
             }
         }
 
-        InvokeRepeating("Spawn",1, Random.RandomRange(spawnMin, spawnMax));
+        InvokeRepeating("Spawn",1, Random.Range(spawnMin, spawnMax));
 
     }
 
