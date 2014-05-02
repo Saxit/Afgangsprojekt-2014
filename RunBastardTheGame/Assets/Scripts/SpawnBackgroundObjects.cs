@@ -96,7 +96,7 @@ public class SpawnBackgroundObjects : MonoBehaviour {
                 objectTypes[i].SetActive(true);
                 _lastObject = (GameObject) Instantiate(objectTypes[i], this.transform.position, Quaternion.identity);
                 _lastObject.renderer.material.mainTexture = (Texture) _textures[n];
-                _lastObject.transform.localEulerAngles = new Vector3(90, 180, 0);
+                _lastObject.renderer.material.shader = Shader.Find("Unlit/Transparent");
 
 
                 found = true;
