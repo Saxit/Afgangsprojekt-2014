@@ -22,7 +22,7 @@ public class PlayerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
 		float move = Input.GetAxis("Vertical");
 		anim.SetFloat("Speed", move);
 
