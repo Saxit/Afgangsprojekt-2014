@@ -9,7 +9,7 @@ public class PlayerScript : MonoBehaviour {
 
 	public float jumpSpeed = 5.0f;
 	public float gravity = 20.0F;
-	public float runSpeed = 10.0f;
+	//public float runSpeed = 1.0f;
 	private Vector3 moveDirection = Vector3.zero;
 
 	int jumpHash = Animator.StringToHash("Jump");
@@ -26,6 +26,8 @@ public class PlayerScript : MonoBehaviour {
 
 		float move = Input.GetAxis("Vertical");
 		anim.SetFloat("Speed", move);
+
+		//rigidbody.AddForce(transform.forward * runSpeed);
 
 		if(Input.GetKeyDown(KeyCode.Space) && cc.isGrounded)
 		{
