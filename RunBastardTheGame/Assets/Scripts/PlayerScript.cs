@@ -9,6 +9,7 @@ public class PlayerScript : MonoBehaviour {
 
 	public float jumpSpeed = 5.0f;
 	public float gravity = 20.0F;
+	public float runSpeed = 10.0f;
 	private Vector3 moveDirection = Vector3.zero;
 
 	int jumpHash = Animator.StringToHash("Jump");
