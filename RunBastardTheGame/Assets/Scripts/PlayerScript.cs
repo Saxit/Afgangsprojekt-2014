@@ -8,12 +8,16 @@ public class PlayerScript : MonoBehaviour {
 	CharacterController cc;
     //BoxCollider boxCol;
 
-	public float jumpSpeed = 5.0f;
-	public float gravity = 20.0F;
+	public float jumpSpeed = 8.0f;
+	public float gravity = 15.0F;
+    
     public float slideHeight;
     public bool isSliding = false;
+    public float slideTime = 0.01f;
+    public float slideCounter = 0.01f;
+    
 	private Vector3 moveDirection = Vector3.zero;
-
+    
 	int jumpHash = Animator.StringToHash("Jump");
 	int groundedHash = Animator.StringToHash("IsGrounded");
     int slideHash = Animator.StringToHash("Slide");
@@ -27,6 +31,8 @@ public class PlayerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        
+        
 
 		float move = Input.GetAxis("Vertical");
 		anim.SetFloat("Speed", move);
@@ -35,12 +41,11 @@ public class PlayerScript : MonoBehaviour {
         //Jumping
 		if(Input.GetKeyDown(KeyCode.Space) && cc.isGrounded && !isSliding)
 		{
-
 			Jump();
 			anim.SetTrigger(jumpHash);
 		}
 
-
+        //Sliding
 		if(cc.isGrounded)
 		{
 			anim.SetBool(groundedHash, true);
@@ -48,6 +53,15 @@ public class PlayerScript : MonoBehaviour {
             if (Input.GetButton("Fire1")) 
             {
                 Slide();
+                //While løkke her
+                slideCounter -= Time.deltaTime;
+                Debug.Log(slideCounter);
+                if (slideCounter <= 0)
+                {
+                    StandUp();
+                    Debug.Log("We counted to 0!");
+                    slideCounter = slideTime;
+                }
             }
 
             if (Input.GetButtonDown("Fire2")) 
@@ -60,6 +74,11 @@ public class PlayerScript : MonoBehaviour {
 		cc.Move(moveDirection * Time.deltaTime);
 	}
 
+
+    /*
+     *  Methods
+     */
+     
 	void Jump()
 	{
 		moveDirection.y = jumpSpeed;
@@ -72,6 +91,7 @@ public class PlayerScript : MonoBehaviour {
         cc.center = new Vector3(0, 0.5f, 0);
         isSliding = true;
         anim.SetTrigger(slideHash);
+        
     }
 
     void StandUp()
