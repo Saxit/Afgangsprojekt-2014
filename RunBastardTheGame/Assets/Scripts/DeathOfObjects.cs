@@ -8,8 +8,8 @@ public class DeathOfObjects : MonoBehaviour {
     {
         if(other.tag == "Player")
         {
-            //TODO: Game Over
-            Debug.Break();
+            //genstarter den nuværende scene
+            Application.LoadLevel(Application.loadedLevel);
 
         }
 

@@ -925,7 +925,7 @@ BoxCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 572589743}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c32cab5d41353eb41975aa1e52317593, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1545,7 +1545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 296f14333ce569b4a885a9a730a94319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedModifier: 3
+  speedModifier: 5.5
 --- !u!1 &1046468306
 GameObject:
   m_ObjectHideFlags: 0
@@ -1620,6 +1620,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6500000, guid: 2ab3efbda88294544859567d2a712dac, type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: c32cab5d41353eb41975aa1e52317593,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2ab3efbda88294544859567d2a712dac, type: 2}
   m_RootGameObject: {fileID: 1767260520}
@@ -1721,7 +1726,7 @@ GameObject:
   - 136: {fileID: 1199674070}
   m_Layer: 0
   m_Name: Robot
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1796,8 +1801,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe24e206e5acfe349b1c0d054f8add07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpSpeed: 6
-  gravity: 15
+  jumpSpeed: 10
+  gravity: 7
   slideHeight: 0
   isSliding: 0
   slideTime: .00999999978
@@ -2263,7 +2268,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 1743555075}
   m_GameObject: {fileID: 1476404131}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -2389,7 +2394,7 @@ Rigidbody2D:
   m_Mass: 9.99999975e-05
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_FixedAngle: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -2580,6 +2585,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6500000, guid: 82da2ddffcf8ade4c9d9a822d441758a, type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 82da2ddffcf8ade4c9d9a822d441758a, type: 2}
   m_RootGameObject: {fileID: 1476404131}
@@ -2632,7 +2641,7 @@ BoxCollider:
     type: 2}
   m_PrefabInternal: {fileID: 1047002175}
   m_GameObject: {fileID: 1767260520}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c32cab5d41353eb41975aa1e52317593, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
