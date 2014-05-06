@@ -23,13 +23,10 @@ public class SpawnScriptTime : MonoBehaviour {
         {
             for (int n = 0; n < obj.Length; n++)
             {
-                Debug.Log(obj.Length.ToString());
-                Debug.Log(n.ToString());
+
                 GameObject go = (GameObject)Instantiate(obj[n], transform.position, Quaternion.identity);
-                Debug.Log(go.name);
                 go.SetActive(false);
                 list.Add(go);
-                Debug.Log(list.Count.ToString());
             }
         }
 

@@ -54,7 +54,7 @@ public class SpawnBackgroundObjects : MonoBehaviour {
     private void LoadTextures()
     {
         _textures = Resources.LoadAll("Textures", typeof(Texture));
-        Debug.Log(_textures.Length.ToString());
+        //Debug.Log(_textures.Length.ToString());
     }
 
     /// <summary>

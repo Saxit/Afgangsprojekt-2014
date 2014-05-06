@@ -1545,7 +1545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 296f14333ce569b4a885a9a730a94319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedModifier: 5.5
+  speedModifier: 2
 --- !u!1 &1046468306
 GameObject:
   m_ObjectHideFlags: 0
@@ -1723,7 +1723,6 @@ GameObject:
   - 114: {fileID: 1199674073}
   - 143: {fileID: 1199674072}
   - 54: {fileID: 1199674071}
-  - 136: {fileID: 1199674070}
   m_Layer: 0
   m_Name: Robot
   m_TagString: Player
@@ -1744,20 +1743,6 @@ Transform:
   - {fileID: 848931014}
   - {fileID: 1803831350}
   m_Father: {fileID: 0}
---- !u!136 &1199674070
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 13600000, guid: 13ca87069c0dca54da0db8599269a26e,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1199674068}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: .300000012
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!54 &1199674071
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1806,6 +1791,8 @@ MonoBehaviour:
   slideHeight: 0
   isSliding: 0
   slideTime: .00999999978
+  swipeUp: .100000001
+  swipeDown: -.100000001
   slideCounter: .00999999978
 --- !u!95 &1199674074
 Animator:
