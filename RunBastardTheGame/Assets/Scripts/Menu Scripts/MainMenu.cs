@@ -15,22 +15,44 @@ public class MainMenu : MonoBehaviour {
 
     void OnGUI()
     {
-        GUI.BeginGroup(new Rect(Screen.width / 2 - 250, Screen.height / 2 - 250, 500, 500));
-
+        
+        GUILayout.BeginArea(new Rect(Screen.width / 2 - 250, Screen.height / 2 - 100, 500, 320));
+        GUILayout.BeginVertical("box");
             GUI.Box(new Rect(0, 0, 500, 500), "");
-            GUI.Button(new Rect(Screen.width / 2 - 200, Screen.height / 2 - 25, 400, 50) , "Continue");
+                    
+            bool continueBut = GUILayout.Button("Continue", GUILayout.Height(75));
+            bool levelBut = GUILayout.Button("Level Select", GUILayout.Height(75));
+            bool optionsBut = GUILayout.Button("Options", GUILayout.Height(75));
+            bool exitBut = GUILayout.Button("Exit", GUILayout.Height(75));
 
+        GUILayout.EndVertical();
+        GUILayout.EndArea();
+        
+
+        if (continueBut)
+        {
+            Debug.Log("Continue");
+            //Application.LoadLevel("MainMenu");
+        }
             
-                GUI.Button(new Rect(150, 10, 200, 50) , "Continue");
-                GUI.Button(new Rect(150, 110, 200, 50), "Level Select");
-                GUI.Button(new Rect(150, 210, 200, 50), "Options");
-                GUI.Button(new Rect(150, 310, 200, 50), "Exit");
-                //GUILayout.Button("Automatic layout");
-                //GUILayout.Button("Automatic layout");
-                //GUILayout.Button("Automatic layout");
-                //GUILayout.Button("Automatic layout");
-                //GUILayout.Button("Automatic layout");
-            
-        GUI.EndGroup();
+        if (levelBut)
+        {
+            Application.LoadLevel("LevelSelect");
+            Debug.Log("Level Select");
+        }
+
+        if (optionsBut)
+        {
+            Application.LoadLevel("Options");
+            Debug.Log("Options");
+        } 
+
+        if (exitBut)
+        {
+            Application.Quit();
+            Debug.Log("Exit");
+        }    
+
+
     }
 }
