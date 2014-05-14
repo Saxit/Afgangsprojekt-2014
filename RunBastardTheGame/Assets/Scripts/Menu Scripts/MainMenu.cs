@@ -16,14 +16,16 @@ public class MainMenu : MonoBehaviour {
     void OnGUI()
     {
         
-        GUILayout.BeginArea(new Rect(Screen.width / 2 - 250, Screen.height / 2 - 100, 500, 320));
+        GUILayout.BeginArea(new Rect(Screen.width / 2 - Screen.width / 4, Screen.height / 2 - Screen.height / 6, Screen.width / 2, Screen.height));
         GUILayout.BeginVertical("box");
-            GUI.Box(new Rect(0, 0, 500, 500), "");
+            //GUI.Box(new Rect(0, 0, 500, 500), "");
                     
-            bool continueBut = GUILayout.Button("Continue", GUILayout.Height(75));
-            bool levelBut = GUILayout.Button("Level Select", GUILayout.Height(75));
-            bool optionsBut = GUILayout.Button("Options", GUILayout.Height(75));
-            bool exitBut = GUILayout.Button("Exit", GUILayout.Height(75));
+            bool continueBut = GUILayout.Button("New Game / Continue", GUILayout.Height(Screen.height / 12));
+            bool levelBut = GUILayout.Button("Level Select", GUILayout.Height(Screen.height / 12));
+            bool tutorialBut = GUILayout.Button("Tutorials", GUILayout.Height(Screen.height / 12));
+            bool optionsBut = GUILayout.Button("Options", GUILayout.Height(Screen.height / 12));
+            bool creditsBut = GUILayout.Button("Credits", GUILayout.Height(Screen.height / 12));
+            bool exitBut = GUILayout.Button("Exit", GUILayout.Height(Screen.height / 12));
 
         GUILayout.EndVertical();
         GUILayout.EndArea();
@@ -31,8 +33,8 @@ public class MainMenu : MonoBehaviour {
 
         if (continueBut)
         {
-            Debug.Log("Continue");
-            //Application.LoadLevel("MainMenu");
+            Debug.Log("New game / Continue");
+            
         }
             
         if (levelBut)
@@ -41,10 +43,22 @@ public class MainMenu : MonoBehaviour {
             Debug.Log("Level Select");
         }
 
+        if (tutorialBut)
+        {
+            Application.LoadLevel("Tutorial");
+            Debug.Log("Tutorial");
+        }
+
         if (optionsBut)
         {
             Application.LoadLevel("Options");
             Debug.Log("Options");
+        }
+
+        if (creditsBut)
+        {
+            Application.LoadLevel("Credits");
+            Debug.Log("Credits");
         } 
 
         if (exitBut)

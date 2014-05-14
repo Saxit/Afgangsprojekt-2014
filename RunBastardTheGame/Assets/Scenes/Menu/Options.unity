@@ -164,7 +164,7 @@ GameObject:
   - 4: {fileID: 312455271}
   - 114: {fileID: 312455270}
   m_Layer: 0
-  m_Name: GUIContinue
+  m_Name: GUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -178,7 +178,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 312455269}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5969bb3e245354a4989c615f5a4dac6b, type: 3}
+  m_Script: {fileID: 11500000, guid: f358c159ae1509a4ba07194bd0e1c818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &312455271

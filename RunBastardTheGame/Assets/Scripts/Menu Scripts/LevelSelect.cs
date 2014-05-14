@@ -59,8 +59,15 @@ public class LevelSelect : MonoBehaviour {
         GUILayout.EndHorizontal();
 
         GUILayout.BeginArea(new Rect(Screen.width / 2 - (Screen.width / 4)/2, Screen.height - Screen.height / 10, Screen.width / 4, Screen.height));
-            GUILayout.Button("Back to main menu", GUILayout.Height(Screen.height / 12));
+            bool backToMenu = GUILayout.Button("Back to main menu", GUILayout.Height(Screen.height / 12));
         GUILayout.EndArea();
         
+
+        //Funtionality
+        if (backToMenu)
+        {
+            Debug.Log("Back to menu");
+            Application.LoadLevel("MainMenu");
+        }
     }
 }

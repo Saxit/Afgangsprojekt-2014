@@ -178,7 +178,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 312455269}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5969bb3e245354a4989c615f5a4dac6b, type: 3}
+  m_Script: {fileID: 11500000, guid: e0ccfa29fece0c54e81950f5d53fc33b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &312455271
@@ -278,7 +278,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1276541873}
-  m_Text: Main Menu
+  m_Text: Tutorial
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
