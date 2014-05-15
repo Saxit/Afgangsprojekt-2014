@@ -3,33 +3,42 @@ using System.Collections;
 
 public class Tutorial : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public GUIStyle tutImg01;
+    public GUIStyle tutImg02;
+    public GUIStyle tutImg03;
 
+    public GUIStyle currentStyle;
+    
+
+    void Start()
+    {
+        currentStyle = tutImg01;
+    }
     void OnGUI()
     {
+        
+        bool tutBut01 = GUI.Button(new Rect(0, 0, Screen.width, Screen.height), "", currentStyle);
+        //bool tutBut02 = GUI.Button(new Rect(0, 0, Screen.width, Screen.height), "", currentStyle);
+        //bool tutBut03 = GUI.Button(new Rect(0, 0, Screen.width, Screen.height), "", currentStyle);
 
-        GUILayout.BeginArea(new Rect(Screen.width / 2 - Screen.width / 4, Screen.height - Screen.height / 6, Screen.width / 2, Screen.height));
-        GUILayout.BeginVertical("box");
-        //GUI.Box(new Rect(0, 0, 500, 500), "");
-
-        bool backToMenu = GUILayout.Button("Back to main menu", GUILayout.Height(Screen.height / 10));
-
-        GUILayout.EndVertical();
-        GUILayout.EndArea();
-
-        if (backToMenu)
+        if (tutBut01 && currentStyle == tutImg01)
+        {            
+            currentStyle = tutImg02;
+            Debug.Log("To page 2");
+            tutBut01 = false;
+        }
+        if (tutBut01 && currentStyle == tutImg02)
+        {
+            currentStyle = tutImg03;
+            Debug.Log("To page 3");
+            tutBut01 = false;
+        }
+        if (tutBut01 && currentStyle == tutImg03)
         {
             Application.LoadLevel("MainMenu");
-            Debug.Log("Back to main menu");
+            Debug.Log("Finished");
         }
+
 
 
     }
