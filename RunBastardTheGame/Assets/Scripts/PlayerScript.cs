@@ -11,37 +11,33 @@ public class PlayerScript : MonoBehaviour {
 	public float gravity = 15.0F;
     
     public float slideHeight;
-    public bool isSliding = false;
     public float slideTime = 0.01f;
 
     public float swipeUp = 0.1f;
     public float swipeDown = -0.1f;
     public float slideCounter = 0.01f;
 
-    private bool _isSliding = false;
     private string _demoText = "test";
 	private Vector3 _moveDirection = Vector3.zero;
 
     private Animator _anim;
     private CharacterController _cc;
     private AnimatorStateInfo _currentBaseState;
-	private int _jumpHash = Animator.StringToHash("Jump");
-	private int _groundedHash = Animator.StringToHash("IsGrounded");
-    private int _slideHash = Animator.StringToHash("Slide");
+	private static int _jumpState = Animator.StringToHash("Base Layer.Jump");
+    private static int _slideState = Animator.StringToHash("Base Layer.Slide");
+    private static int _doubleJumpState = Animator.StringToHash("Base Layer.DoubleJump");
+    private static int _runState = Animator.StringToHash("Base Layer.Run");
 
 	// Use this for initialization
 	void Start () {
 		_anim = GetComponent<Animator>();
 		_cc = GetComponent<CharacterController>();
-        //boxCol = GetComponent<BoxCollider>();
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
-		float move = Input.GetAxis("Vertical");
-		_anim.SetFloat("Speed", move);
-
+        _currentBaseState = _anim.GetCurrentAnimatorStateInfo(0);
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
 
 #if UNITY_ANDROID
@@ -71,19 +67,25 @@ public class PlayerScript : MonoBehaviour {
 
 
             //Hvis swipet er opadgående og spilleren har jordforbindelse
-            if (deltaTouchPos.y > swipeUp && _cc.isGrounded)
+            if (deltaTouchPos.y > swipeUp && _currentBaseState.nameHash == _runState)
             {
                 Jump();
-                _anim.SetTrigger(_jumpHash);
+                _anim.SetTrigger("Jump");
                 _demoText = "Jump";
             }
 
-
+            else if(deltaTouchPos.y > swipeUp && _currentBaseState.nameHash == _jumpState)
+            {
+                Jump();
+                _anim.SetTrigger("DoubleJump");
+                _demoText = "Double Jump";
+            }
 
             //Hvis swipet er nedadgående og spilleren har jordforbindelse
-            if (deltaTouchPos.y < swipeDown && _cc.isGrounded)
+            else if (deltaTouchPos.y < swipeDown && _currentBaseState.nameHash == _runState)
             {
                 _demoText = "Duck";
+                _anim.SetTrigger("SlideParam");
                 Slide();
                 StartCoroutine(WaitForSlide());
             }
@@ -93,17 +95,25 @@ public class PlayerScript : MonoBehaviour {
     private void KeyboardControls()
     {
         ////Jumping
-        if (Input.GetButtonDown("Fire1") && _cc.isGrounded)
+        if (Input.GetButtonDown("Fire1") && _currentBaseState.nameHash == _runState)
         {
             Jump();
-            _anim.SetTrigger(_jumpHash);
+            _anim.SetTrigger("JumpParam");
             _demoText = "Jump";
         }
 
+        else if (Input.GetButtonDown("Fire1") && _currentBaseState.nameHash == _jumpState)
+        {
+            Jump();
+            _anim.SetTrigger("DoubleJumpParam");
+            _demoText = "Double Jump";
+        }
+
         //Sliding
-        if (Input.GetButtonDown("Fire2") && _cc.isGrounded)
+        else if (Input.GetButtonDown("Fire2") && _currentBaseState.nameHash == _runState)
         {
             _demoText = "Duck";
+            _anim.SetTrigger("SlideParam");
             Slide();
             StartCoroutine(WaitForSlide());
         }
@@ -119,9 +129,6 @@ public class PlayerScript : MonoBehaviour {
     {    
         _cc.height = 1f;
         _cc.center = new Vector3(0, 0.5f, 0);
-        isSliding = true;
-        _anim.SetTrigger(_slideHash);
-        
     }
 
     void StandUp()
@@ -129,7 +136,7 @@ public class PlayerScript : MonoBehaviour {
         Debug.Log("standup");
         _cc.height = 2f;
         _cc.center = new Vector3(0, 1f, 0);
-        isSliding = false;
+       
     }
 
     IEnumerator WaitForSlide()
