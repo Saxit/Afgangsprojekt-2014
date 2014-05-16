@@ -3,16 +3,14 @@ using System.Collections;
 
 public class MainMenu : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public AudioClip buttonClick;
+    public Object SoundManager;
 
+    void Start()
+    {
+        SoundManager = GameObject.Find("SoundManager");
+    }
+    
     void OnGUI()
     {
         
@@ -33,31 +31,39 @@ public class MainMenu : MonoBehaviour {
 
         if (continueBut)
         {
+            Destroy(SoundManager);
             Debug.Log("New game / Continue");
+            audio.PlayOneShot(buttonClick);
             
         }
             
         if (levelBut)
         {
             Application.LoadLevel("LevelSelect");
+            audio.PlayOneShot(buttonClick);
+
             Debug.Log("Level Select");
+
         }
 
         if (tutorialBut)
         {
             Application.LoadLevel("Tutorial");
+            audio.PlayOneShot(buttonClick);
             Debug.Log("Tutorial");
         }
 
         if (optionsBut)
         {
             Application.LoadLevel("Options");
+            audio.PlayOneShot(buttonClick);
             Debug.Log("Options");
         }
 
         if (creditsBut)
         {
             Application.LoadLevel("Credits");
+            audio.PlayOneShot(buttonClick);
             Debug.Log("Credits");
         } 
 
