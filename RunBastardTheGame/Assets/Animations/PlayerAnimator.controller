@@ -88,13 +88,13 @@ Transition:
   m_Name: 
   m_SrcState: {fileID: 110251596}
   m_DstState: {fileID: 110222829}
-  m_TransitionDuration: .145170763
-  m_TransitionOffset: .030451484
+  m_TransitionDuration: .316299886
+  m_TransitionOffset: .113754891
   m_Conditions:
   - m_ConditionMode: 5
     m_ConditionEvent: Jump
     m_EventTreshold: 0
-    m_ExitTime: .482130885
+    m_ExitTime: .852473497
   m_Atomic: 1
   m_Solo: 0
   m_Mute: 0
@@ -173,7 +173,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Run
-  m_Speed: .200000003
+  m_Speed: 1
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400014, guid: 7333bec06e04c4b6e9d78bd6e890dfb1, type: 3}
@@ -206,7 +206,7 @@ State:
   m_Speed: 1
   m_CycleOffset: 0
   m_Motions:
-  - {fileID: 7400012, guid: cbb67ab5509bfe24dba7db2d65a9632f, type: 3}
+  - {fileID: 7400000, guid: eae450618a8ff9d43a73f44456ca11a7, type: 3}
   m_ParentStateMachine: {fileID: 110700000}
   m_Position: {x: 540, y: 84, z: 0}
   m_IKOnFeet: 0
