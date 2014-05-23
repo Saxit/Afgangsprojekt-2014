@@ -4,12 +4,14 @@ using System.Collections.Generic;
 
 public class SpawnScriptDistance : MonoBehaviour {
 
-    public List<GameObject> objectTypes;          //Listen over mulige spawnobjekter
+    public GameObject[] obj;                      //Listen over mulige spawnobjekter
     public GameObject uniqueObject;               //Specielt objekt der ikke passer i listen. F.eks slutplatformen
-    public float distanceBetweenObjects = 10f;    //Hvor langt er der i afstand mellem de objekter der skal spawnes
-    public int numberOfObjectsToSpawn = 10;       //Hvor mange objekter skal der spawnes i lvl
-    
-    private GameObject _lastObject;               //Det sidst spawnede objekt
+    public float distanceBetweenObjects = 60f;    //Hvor langt er der i afstand mellem de objekter der skal spawnes
+    public int numberOfObjectsToSpawn = 18;       //Hvor mange objekter skal der spawnes i lvl
+    public float pooledAmount = 5;                //antallet af hver type obj der skal pooles
+    public GameObject lastObject;               //Det sidst spawnede objekt
+
+    private List<GameObject> list;
     private int _spawnedObjects = 0;              //Delta antal spawnede objekter
     private bool _allObjectsSpawned = false;      //Bruges til at se om alle objekter er spawnet
     
@@ -28,12 +30,13 @@ public class SpawnScriptDistance : MonoBehaviour {
         if(_allObjectsSpawned == false)
         {
             //Finder afstanden imellem dette objekt og det sidst spawnede objekt
-            float distance = Vector3.Distance(this.transform.position, _lastObject.transform.position);
+            float distance = Vector3.Distance(this.transform.position, lastObject.transform.position);
 
             //hvis afstanden mellem dette objekt og det sidste spawnede er større end det brugerdefinerede
             //Og det ikke er slutningen af lvl.
             if(distance >= distanceBetweenObjects && _spawnedObjects != numberOfObjectsToSpawn)
             {
+                Debug.Log(distance.ToString());
                 //spawn nyt objekt
                 Spawn();
             }
@@ -53,12 +56,19 @@ public class SpawnScriptDistance : MonoBehaviour {
     /// </summary>
     private void PoolSpawns()
     {
- 
-        for (int i = 0; i < objectTypes.Count; i++)
-        {
+        //Debug.Log("poolspawns");
+        list = new List<GameObject>();
 
-            objectTypes[i].SetActive(false);
-                    
+        for (int i = 0; i < pooledAmount; i++)
+        {
+            for (int n = 0; n < obj.Length; n++)
+            {
+                GameObject go = (GameObject)Instantiate(obj[n], transform.position, Quaternion.identity);
+                go.SetActive(false);
+                list.Add(go);
+                //Debug.Log(list.Count.ToString());
+            }
+                
         }
 
         //Debug.Log(platformTypes.Count.ToString());
@@ -69,23 +79,24 @@ public class SpawnScriptDistance : MonoBehaviour {
     /// </summary>
     private void Spawn()
     {
+        //Debug.Log("spawn");
         bool found = false;
 
         //Så længe der ikke er fundet et inaktiv objekt
          while (!found)
          {
              //Vælg et tilfældigt objekt, her ved vi ikke hvilke der er inaktive
-            int i = Random.Range(0, objectTypes.Count);
+            int i = Random.Range(0, list.Count);
             
             //Se om det valgte objekt er aktivt
-            if (!objectTypes[i].activeInHierarchy)
+            if (!list[i].activeInHierarchy)
             {
                 //Hvis den er inaktiv, så opret den og opdater spillet med antal spawnede objekter
                 _spawnedObjects++;
-                _lastObject = objectTypes[i];
-                objectTypes[i].transform.position = this.transform.position;
-                objectTypes[i].SetActive(true);
-                Instantiate(objectTypes[i], this.transform.position, Quaternion.identity);
+                lastObject = list[i];
+                list[i].transform.position = this.transform.position;
+                list[i].SetActive(true);
+                Instantiate(list[i], this.transform.position, Quaternion.identity);
                 found = true;
             }
         }
