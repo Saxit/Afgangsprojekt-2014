@@ -73,7 +73,7 @@ public class PlayerScript : MonoBehaviour {
                 _anim.SetTrigger("Jump");
                 _demoText = "Jump";
             }
-
+            //hvis swipet er opadgående, og spilleren i forvejen i luften
             else if(deltaTouchPos.y > swipeUp && _currentBaseState.nameHash == _jumpState)
             {
                 Jump();
