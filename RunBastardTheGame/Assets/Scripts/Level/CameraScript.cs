@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TempMoveCamera : MonoBehaviour {
+public class CameraScript : MonoBehaviour {
 
     public Transform transformToFollow;
     public float distanceFromTransform = 5f;
