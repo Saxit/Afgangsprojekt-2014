@@ -26,6 +26,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
+  - m_Name: AttackParam
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 3
     m_Name: Base Layer
@@ -176,7 +182,7 @@ Transition:
   m_TransitionOffset: 0
   m_Conditions:
   - m_ConditionMode: 5
-    m_ConditionEvent: 
+    m_ConditionEvent: AttackParam
     m_EventTreshold: 0
     m_ExitTime: .888059735
   m_Atomic: 1
@@ -277,6 +283,9 @@ StateMachine:
       first: {fileID: 0}
       second: []
     data:
+      first: {fileID: 0}
+      second: []
+    data:
       first: {fileID: 110222829}
       second:
       - {fileID: 110171156}
@@ -295,5 +304,5 @@ StateMachine:
       second:
       - {fileID: 110175020}
   m_MotionSetCount: 1
-  m_AnyStatePosition: {x: 50, y: 20, z: 0}
+  m_AnyStatePosition: {x: -240, y: -132, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}

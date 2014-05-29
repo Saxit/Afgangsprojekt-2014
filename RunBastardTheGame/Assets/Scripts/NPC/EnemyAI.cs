@@ -9,11 +9,10 @@ public class EnemyAI : MonoBehaviour {
 
     private Vector3 _moveDirection;
     private State _state;
-    private npcSight _sight;
-    private npcFeels _feels;
+    public npcSight _sight;
+    public npcFeels _feels;
     private Transform _player;
     private Animator _anim;
-    private CharacterController _cc;
 
 	// Use this for initialization
 	IEnumerator Start () {
@@ -53,19 +52,18 @@ public class EnemyAI : MonoBehaviour {
         _sight = this.transform.GetComponentInChildren<npcSight>();
         _feels = this.transform.GetComponentInChildren<npcFeels>();
         _player = GameObject.FindGameObjectWithTag("Player").transform;
-        _cc = this.transform.GetComponent<CharacterController>();
         _moveDirection = Vector3.zero;
+        _anim = GetComponent<Animator>();
         _state = State.Walk;
     }
 
     private void Walk()
     {
         //Debug.Log("Enemy Walk");
-        _moveDirection.y -= gravity * Time.deltaTime;
-        _cc.Move(_moveDirection * Time.deltaTime);
 
         if(_sight.playerInSight)
         {
+            Debug.Log("set");
             _anim.SetBool("PlayerSeen", true);
             _state = State.Attack;
         }
@@ -79,9 +77,10 @@ public class EnemyAI : MonoBehaviour {
 
     private void Jump()
     {
-        //Debug.Log("Enemy Jump");
-        _moveDirection.y = jumpForce;
-        //this.rigidbody.AddForce(Vector3.up * jumpForce);
+        Debug.Log("Enemy Jump");
+
+        StartCoroutine(WaitForDoubleJump());
+        
         _state = State.Walk;
     }
 
@@ -90,12 +89,13 @@ public class EnemyAI : MonoBehaviour {
         //Debug.Log("Enemy Attack");
         if(_sight.playerInSight)
         {
-            _cc.Move(new Vector3(0, 0, 0));
+            _anim.applyRootMotion = false;
             Debug.Log("BANG!");
         }
         else
         {
-            //_state = State.Die;
+            _state = State.Walk;
+            _anim.applyRootMotion = true;
         }
     }
 	
@@ -105,6 +105,15 @@ public class EnemyAI : MonoBehaviour {
         this.gameObject.SetActive(false);
     }
 
+
+    IEnumerator WaitForDoubleJump()
+    {
+        Debug.Log("hop");
+        rigidbody.AddForce(Vector3.up * jumpForce);
+        yield return new WaitForSeconds(1.2f);
+        rigidbody.AddForce(Vector3.up * (jumpForce * 1.5f));
+        Debug.Log("hop");
+    }
 
     public enum State
     {

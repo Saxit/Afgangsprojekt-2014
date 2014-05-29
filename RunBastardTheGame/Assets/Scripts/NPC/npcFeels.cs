@@ -18,7 +18,7 @@ public class npcFeels : MonoBehaviour {
         if (other.gameObject.tag == "JumpPoint")
         {
             NpcJump = true;
-            Debug.Log("WHEEE!!");
+            //Debug.Log("WHEEE!!");
         }
 
     }

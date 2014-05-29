@@ -21,7 +21,8 @@ public class PlayerScript : MonoBehaviour {
 	private Vector3 _moveDirection = Vector3.zero;
 
     private Animator _anim;
-    private CharacterController _cc;
+    private CapsuleCollider _psysCol;
+    private CapsuleCollider _collisionCol;
     private AnimatorStateInfo _currentBaseState;
 	private static int _jumpState = Animator.StringToHash("Base Layer.Jump");
     private static int _slideState = Animator.StringToHash("Base Layer.Slide");
@@ -31,13 +32,15 @@ public class PlayerScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		_anim = GetComponent<Animator>();
-		_cc = GetComponent<CharacterController>();
+        _psysCol = GetComponent<CapsuleCollider>();
+        _collisionCol = transform.Find("CollisionObj").GetComponent<CapsuleCollider>();
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
         _currentBaseState = _anim.GetCurrentAnimatorStateInfo(0);
+
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
 
 #if UNITY_ANDROID
@@ -48,8 +51,6 @@ public class PlayerScript : MonoBehaviour {
         KeyboardControls();
 #endif
 
-		_moveDirection.y -= gravity * Time.deltaTime;
-		_cc.Move(_moveDirection * Time.deltaTime);
 	}
 
 
@@ -97,9 +98,11 @@ public class PlayerScript : MonoBehaviour {
         ////Jumping
         if (Input.GetButtonDown("Fire1") && _currentBaseState.nameHash == _runState)
         {
-            Jump();
+            
             _anim.SetTrigger("JumpParam");
             _demoText = "Jump";
+            Jump();
+            StartCoroutine(WaitForSlide());
         }
 
         else if (Input.GetButtonDown("Fire1") && _currentBaseState.nameHash == _jumpState)
@@ -121,27 +124,28 @@ public class PlayerScript : MonoBehaviour {
 
 	void Jump()
 	{
-		_moveDirection.y = jumpForce;
 		rigidbody.AddForce(Vector3.up * jumpForce);
 	}
 
     void Slide()
-    {    
-        _cc.height = 1f;
-        _cc.center = new Vector3(0, 0.5f, 0);
+    {
+        _collisionCol.enabled = false;
+        
+        _psysCol.height = 0.25f;
+        _psysCol.center = new Vector3(0, 0.25f, 0);
     }
 
     void StandUp()
     {
-        Debug.Log("standup");
-        _cc.height = 2f;
-        _cc.center = new Vector3(0, 1f, 0);
-       
+        //Debug.Log("standup");
+        _psysCol.height = 1f;
+        _psysCol.center = new Vector3(0, 0.5f, 0);
+        _collisionCol.enabled = true;
     }
 
     IEnumerator WaitForSlide()
     {
-        Debug.Log("waitforit");
+        //Debug.Log("waitforit");
         _moveDirection.y = 0;
         yield return new WaitForSeconds(1.2f);
         StandUp();

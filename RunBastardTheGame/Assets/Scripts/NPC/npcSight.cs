@@ -14,7 +14,7 @@ public class npcSight : MonoBehaviour {
     void Awake()
     {
         _col = GetComponent<SphereCollider>();
-        _player = GameObject.FindGameObjectWithTag("Player");
+        _player = GameObject.Find("CollisionObj");
     }
 
     /// <summary>
@@ -25,10 +25,9 @@ public class npcSight : MonoBehaviour {
     void OnTriggerStay(Collider other)
     {
         //er trigger collideren på spilleren?
-        if (other.gameObject == _player)
+        if (other.gameObject.name == _player.name)
         {
             playerInSight = true;
-            Debug.Log("set");
         }
     }
 
