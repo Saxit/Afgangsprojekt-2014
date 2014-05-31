@@ -3,27 +3,30 @@ using System.Collections;
 
 public class PlayerScript : MonoBehaviour {
 
-	public float jumpForce = 8.0f;                      //Udgangspunktet for den kraft som bliver tildelt hop
+	public float jumpForce = 300.0f;                    //Udgangspunktet for den kraft som bliver tildelt hop
 	public float gravity = 15.0F;                       //Udgangspunktet for tyngdekraften
     public float swipeUp = 0.1f;                        //Udgangspunktet for hvor langt op af y-aksen der skal swipes for at det tæller
     public float swipeDown = -0.1f;                     //Udgangspunktet for hvor langt ned af y-aksen der skal swipes for at det tæller
 
     private string _demoText = "test";                  //debug tekst
-
     private Animator _anim;                             //reference til Animator-komponenten
     private CapsuleCollider _psysCol;                   //reference til den collider der håndterer fysik
     private CapsuleCollider _collisionCol;              //reference til den collider der benyttes som trigger
+    private Rigidbody _body;
     private AnimatorStateInfo _currentBaseState;        //reference til den aktive controller-tilstand
 	private static int _jumpState = Animator.StringToHash("Base Layer.Jump");                   //Konverter tilstandsnavnene til en hashværdi
     private static int _slideState = Animator.StringToHash("Base Layer.Slide");
     private static int _doubleJumpState = Animator.StringToHash("Base Layer.DoubleJump");
     private static int _runState = Animator.StringToHash("Base Layer.Run");
 
+
 	// Use this for initialization
 	void Start () {
 		_anim = GetComponent<Animator>();                                                   //Cache Animator komponenten
         _psysCol = GetComponent<CapsuleCollider>();                                         //Cache fysik collideren
-        _collisionCol = transform.Find("CollisionObj").GetComponent<CapsuleCollider>();     //Cache trigger collideren
+        _body = GetComponent<Rigidbody>();                                        //Cache rigidbody
+        _collisionCol = GameObject.Find("CollisionObj").GetComponent<CapsuleCollider>();     //Cache trigger collideren
+
 
 	}
 	
@@ -61,14 +64,14 @@ public class PlayerScript : MonoBehaviour {
             if (deltaTouchPos.y > swipeUp && _currentBaseState.nameHash == _runState)
             {
                 Jump();
-                _anim.SetTrigger("Jump");
+                _anim.SetTrigger("Jump");   //Opdaterer animatoren
                 _demoText = "Jump";
             }
             //hvis swipet er opadgående, og spilleren i forvejen i luften
             else if(deltaTouchPos.y > swipeUp && _currentBaseState.nameHash == _jumpState)
             {
                 Jump();
-                _anim.SetTrigger("DoubleJump");
+                _anim.SetTrigger("DoubleJump"); //Opdaterer animatoren
                 _demoText = "Double Jump";
             }
 
@@ -76,13 +79,18 @@ public class PlayerScript : MonoBehaviour {
             else if (deltaTouchPos.y < swipeDown && _currentBaseState.nameHash == _runState)
             {
                 _demoText = "Duck";
-                _anim.SetTrigger("SlideParam");
+                _anim.SetTrigger("SlideParam"); //Opdaterer animatoren
                 Slide();
                 StartCoroutine(WaitForSlide());
             }
         }
     }
 
+
+    /// <summary>
+    /// Input-controller til PC-versionen
+    /// Baseret på keyboard / mus-input
+    /// </summary>
     private void KeyboardControls()
     {
         ////Jumping
@@ -112,11 +120,19 @@ public class PlayerScript : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Giver kraft til gameobjektets Y-akse, hvilket løfter den.
+    /// </summary>
 	void Jump()
 	{
 		rigidbody.AddForce(Vector3.up * jumpForce);
 	}
 
+    /// <summary>
+    /// Ændrer størrelsen på GameObjektets fysik collider til en fjerdedel, 
+    /// og placerer den i halv højde. 
+    /// Slukker for collision collideren
+    /// </summary>
     void Slide()
     {
         _collisionCol.enabled = false;
@@ -125,6 +141,11 @@ public class PlayerScript : MonoBehaviour {
         _psysCol.center = new Vector3(0, 0.25f, 0);
     }
 
+    /// <summary>
+    /// Ændrer størrelsen på fysik collideren tilbage til 1,
+    /// og placerer den tilbage i normal højde.
+    /// Tænder for collision collideren
+    /// </summary>
     void StandUp()
     {
         //Debug.Log("standup");
@@ -133,6 +154,10 @@ public class PlayerScript : MonoBehaviour {
         _collisionCol.enabled = true;
     }
 
+    /// <summary>
+    /// Venter 1.2 sekunder, og kalder StandUp()
+    /// </summary>
+    /// <returns></returns>
     IEnumerator WaitForSlide()
     {
         //Debug.Log("waitforit");
@@ -142,6 +167,9 @@ public class PlayerScript : MonoBehaviour {
     }
 
 
+    /// <summary>
+    /// Opdaterer demotekst
+    /// </summary>
     private void OnGUI()
     {
         Vector2 pos = Camera.main.ScreenToViewportPoint(this.transform.position);
