@@ -3,51 +3,40 @@ using System.Collections;
 
 public class PlayerScript : MonoBehaviour {
 
+	public float jumpForce = 8.0f;                      //Udgangspunktet for den kraft som bliver tildelt hop
+	public float gravity = 15.0F;                       //Udgangspunktet for tyngdekraften
+    public float swipeUp = 0.1f;                        //Udgangspunktet for hvor langt op af y-aksen der skal swipes for at det tæller
+    public float swipeDown = -0.1f;                     //Udgangspunktet for hvor langt ned af y-aksen der skal swipes for at det tæller
 
-    //BoxCollider boxCol;
+    private string _demoText = "test";                  //debug tekst
 
-    public float animSpeed = 1f;
-	public float jumpForce = 8.0f;
-	public float gravity = 15.0F;
-    
-    public float slideHeight;
-    public float slideTime = 0.01f;
-
-    public float swipeUp = 0.1f;
-    public float swipeDown = -0.1f;
-    public float slideCounter = 0.01f;
-
-    private string _demoText = "test";
-	private Vector3 _moveDirection = Vector3.zero;
-
-    private Animator _anim;
-    private CapsuleCollider _psysCol;
-    private CapsuleCollider _collisionCol;
-    private AnimatorStateInfo _currentBaseState;
-	private static int _jumpState = Animator.StringToHash("Base Layer.Jump");
+    private Animator _anim;                             //reference til Animator-komponenten
+    private CapsuleCollider _psysCol;                   //reference til den collider der håndterer fysik
+    private CapsuleCollider _collisionCol;              //reference til den collider der benyttes som trigger
+    private AnimatorStateInfo _currentBaseState;        //reference til den aktive controller-tilstand
+	private static int _jumpState = Animator.StringToHash("Base Layer.Jump");                   //Konverter tilstandsnavnene til en hashværdi
     private static int _slideState = Animator.StringToHash("Base Layer.Slide");
     private static int _doubleJumpState = Animator.StringToHash("Base Layer.DoubleJump");
     private static int _runState = Animator.StringToHash("Base Layer.Run");
 
 	// Use this for initialization
 	void Start () {
-		_anim = GetComponent<Animator>();
-        _psysCol = GetComponent<CapsuleCollider>();
-        _collisionCol = transform.Find("CollisionObj").GetComponent<CapsuleCollider>();
+		_anim = GetComponent<Animator>();                                                   //Cache Animator komponenten
+        _psysCol = GetComponent<CapsuleCollider>();                                         //Cache fysik collideren
+        _collisionCol = transform.Find("CollisionObj").GetComponent<CapsuleCollider>();     //Cache trigger collideren
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        _currentBaseState = _anim.GetCurrentAnimatorStateInfo(0);
+        _currentBaseState = _anim.GetCurrentAnimatorStateInfo(0);                           //Sæt den aktive tilstandsværdi 
+        transform.position = new Vector3(transform.position.x, transform.position.y, 0);    //Sikrer at GameObjektet aldrig afviger fra 0 på Z-aksen
 
-        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-
-#if UNITY_ANDROID
+#if UNITY_ANDROID   //Hvis spillet afvikles på en Android maskine
         SwipeControls();
 #endif
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR    //Hvis spillet afvikles på PC
         KeyboardControls();
 #endif
 
@@ -55,7 +44,8 @@ public class PlayerScript : MonoBehaviour {
 
 
     /*
-     *  Methods
+     *  Input-controller til Mobilversionen.
+     *  Baseret på swipe input.
      */
 
     private void SwipeControls()
@@ -146,7 +136,6 @@ public class PlayerScript : MonoBehaviour {
     IEnumerator WaitForSlide()
     {
         //Debug.Log("waitforit");
-        _moveDirection.y = 0;
         yield return new WaitForSeconds(1.2f);
         StandUp();
 
