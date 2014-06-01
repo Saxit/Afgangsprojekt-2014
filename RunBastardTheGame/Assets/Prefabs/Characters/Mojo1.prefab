@@ -884,14 +884,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe24e206e5acfe349b1c0d054f8add07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animSpeed: 1
   jumpForce: 300
   gravity: 15
-  slideHeight: 0
-  slideTime: .00999999978
   swipeUp: .100000001
   swipeDown: -.100000001
-  slideCounter: .00999999978
 --- !u!136 &13600000
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -163,7 +163,6 @@ public class PlayerScript : MonoBehaviour {
         //Debug.Log("waitforit");
         yield return new WaitForSeconds(1.2f);
         StandUp();
-
     }
 
 
