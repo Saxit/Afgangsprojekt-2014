@@ -9,7 +9,7 @@ public class SpawnScriptDistance : MonoBehaviour {
     public float distanceBetweenObjects = 60f;    //Hvor langt er der i afstand mellem de objekter der skal spawnes
     public int numberOfObjectsToSpawn = 18;       //Hvor mange objekter skal der spawnes i lvl
     public float pooledAmount = 5;                //antallet af hver type obj der skal pooles
-    public GameObject lastObject;               //Det sidst spawnede objekt
+    public GameObject lastObject;                 //Det sidst spawnede objekt
 
     private List<GameObject> list;
     private int _spawnedObjects = 0;              //Delta antal spawnede objekter
@@ -27,29 +27,41 @@ public class SpawnScriptDistance : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        isAllObjectsSpawned();
+
+        //Finder afstanden imellem dette objekt og det sidst spawnede objekt
+        float distance = Vector3.Distance(this.transform.position, lastObject.transform.position);
+
         if(_allObjectsSpawned == false)
         {
-            //Finder afstanden imellem dette objekt og det sidst spawnede objekt
-            float distance = Vector3.Distance(this.transform.position, lastObject.transform.position);
-
             //hvis afstanden mellem dette objekt og det sidste spawnede er større end det brugerdefinerede
             //Og det ikke er slutningen af lvl.
-            if(distance >= distanceBetweenObjects && _spawnedObjects != numberOfObjectsToSpawn)
+            if(distance >= distanceBetweenObjects)
             {
                 Debug.Log(distance.ToString());
                 //spawn nyt objekt
                 Spawn();
             }
-
+        }
+        else
+        {
             //hvis afstanden mellem dette objekt og det sidste spawnede er større end det brugerdefinerede
             //og det ER slutningen af lvl.
-            if (distance >= distanceBetweenObjects && _spawnedObjects == numberOfObjectsToSpawn)
+            if (distance >= distanceBetweenObjects)
             {
                 SpawnUnique();
             }
-
         }
+
 	}
+
+    private void isAllObjectsSpawned()
+    {
+        if (numberOfObjectsToSpawn == _spawnedObjects)
+        {
+            _allObjectsSpawned = true;
+        }
+    }
 
     /// <summary>
     /// Sæt alle platformtyper til inaktive.
@@ -111,7 +123,6 @@ public class SpawnScriptDistance : MonoBehaviour {
     private void SpawnUnique()
     {
         Instantiate(uniqueObject, transform.position, Quaternion.identity);
-        _allObjectsSpawned = true;
     }
 
 }

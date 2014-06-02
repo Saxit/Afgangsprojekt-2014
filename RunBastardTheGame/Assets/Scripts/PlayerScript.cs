@@ -18,6 +18,7 @@ public class PlayerScript : MonoBehaviour {
     private static int _slideState = Animator.StringToHash("Base Layer.Slide");
     private static int _doubleJumpState = Animator.StringToHash("Base Layer.DoubleJump");
     private static int _runState = Animator.StringToHash("Base Layer.Run");
+    private int _swipecount = 0;
 
 
 	// Use this for initialization
@@ -34,6 +35,8 @@ public class PlayerScript : MonoBehaviour {
 	void Update () {
         _currentBaseState = _anim.GetCurrentAnimatorStateInfo(0);                           //Sæt den aktive tilstandsværdi 
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);    //Sikrer at GameObjektet aldrig afviger fra 0 på Z-aksen
+        //_body.velocity = Vector3.right * 4.0f;
+
 
 #if UNITY_ANDROID   //Hvis spillet afvikles på en Android maskine
         SwipeControls();
@@ -46,6 +49,7 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 
+
     /*
      *  Input-controller til Mobilversionen.
      *  Baseret på swipe input.
@@ -55,6 +59,7 @@ public class PlayerScript : MonoBehaviour {
     {
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
         {
+            _swipecount = Input.touchCount;
             //Find bevægelsen fra sidste frame til nu
             Vector2 deltaTouchPos = Input.GetTouch(0).deltaPosition;
             //Debug.Log("DeltaPos: " + Input.GetTouch(0).deltaPosition.y.ToString() + " SwipeY: " + swipeUp.ToString());
@@ -125,7 +130,7 @@ public class PlayerScript : MonoBehaviour {
     /// </summary>
 	void Jump()
 	{
-		rigidbody.AddForce(Vector3.up * jumpForce);
+		_body.AddForce(Vector3.up * jumpForce);
 	}
 
     /// <summary>
@@ -174,7 +179,7 @@ public class PlayerScript : MonoBehaviour {
         Vector2 pos = Camera.main.ScreenToViewportPoint(this.transform.position);
 
 
-        GUI.Label(new Rect(pos.x, pos.y, 200, 30), _demoText);
+        GUI.Label(new Rect(pos.x, pos.y, 200, 30), _swipecount.ToString());
         //Debug.Log(pos.y);
 
     }
