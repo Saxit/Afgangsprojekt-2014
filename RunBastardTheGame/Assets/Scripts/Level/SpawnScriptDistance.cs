@@ -106,12 +106,11 @@ public class SpawnScriptDistance : MonoBehaviour {
             //Se om det valgte objekt er aktivt
             if (!list[i].activeInHierarchy)
             {
-                //Hvis den er inaktiv, så opret den og opdater spillet med antal spawnede objekter
-                _spawnedObjects++;
-                lastObject = list[i];
-                list[i].transform.position = this.transform.position;
-                list[i].SetActive(true);
-                Instantiate(list[i], this.transform.position, Quaternion.identity);
+                //Hvis den er inaktiv, så opret den.
+                _spawnedObjects++;                                                  //opdater banens længde
+                lastObject = list[i];                                               //cache nyt GO
+                list[i].transform.position = this.transform.position;               //sæt nyt GO til spawnerens position
+                list[i].SetActive(true);                                            //Aktiver nyt GO
                 found = true;
             }
         }

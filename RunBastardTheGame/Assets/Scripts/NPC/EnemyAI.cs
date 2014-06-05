@@ -7,7 +7,6 @@ public class EnemyAI : MonoBehaviour {
     public float jumpForce = 10f;
     public float gravity = 15f;
 
-    private Vector3 _moveDirection;
     private State _state;
     public npcSight _sight;
     public npcFeels _feels;
@@ -51,9 +50,8 @@ public class EnemyAI : MonoBehaviour {
         Debug.Log("Enemy init");
         _sight = this.transform.GetComponentInChildren<npcSight>();
         _feels = this.transform.GetComponentInChildren<npcFeels>();
+        _anim = this.transform.GetComponentInChildren<Animator>();
         _player = GameObject.FindGameObjectWithTag("Player").transform;
-        _moveDirection = Vector3.zero;
-        _anim = GetComponent<Animator>();
         _state = State.Walk;
     }
 

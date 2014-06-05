@@ -121,7 +121,7 @@ public class PlayerScript : MonoBehaviour {
         else if (Input.GetButtonDown("Fire2") && _currentBaseState.nameHash == _runState)
         {
             _demoText = "Duck";
-            //_anim.SetTrigger("SlideParam");
+            _anim.SetTrigger("SlideParam");
             Slide();
             StartCoroutine(WaitForSlide());
         }
@@ -180,10 +180,10 @@ public class PlayerScript : MonoBehaviour {
     {
         Vector2 pos = Camera.main.ScreenToViewportPoint(this.transform.position);
 
-        string text = "Grounded: " + _isGrounded.ToString() + " - " + "Jumping: " + _isJumping.ToString() + " - " + "_isDoubleJumping: " + _isDoubleJumping.ToString();
+        //string text = "Grounded: " + _isGrounded.ToString() + " - " + "Jumping: " + _isJumping.ToString() + " - " + "_isDoubleJumping: " + _isDoubleJumping.ToString();
 
         GUI.Label(new Rect(pos.x, pos.y, 200, 30), _demoText.ToString());
-        GUI.Label(new Rect(pos.x, pos.y + 30, 300, 300), text.ToString());
+        //GUI.Label(new Rect(pos.x, pos.y + 30, 300, 300), text.ToString());
         //Debug.Log(pos.y);
 
     }
