@@ -121,7 +121,7 @@ public class PlayerScript : MonoBehaviour {
         else if (Input.GetButtonDown("Fire2") && _currentBaseState.nameHash == _runState)
         {
             _demoText = "Duck";
-            //_anim.SetTrigger("SlideParam");
+            _anim.SetTrigger("SlideParam");
             Slide();
             StartCoroutine(WaitForSlide());
         }
