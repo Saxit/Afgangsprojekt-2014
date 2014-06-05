@@ -474,6 +474,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &100062
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400062}
+  - 114: {fileID: 11400004}
+  m_Layer: 0
+  m_Name: ShotPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &400000
 Transform:
   m_ObjectHideFlags: 1
@@ -844,7 +860,19 @@ Transform:
   - {fileID: 400054}
   - {fileID: 400052}
   - {fileID: 400000}
+  - {fileID: 400062}
   m_Father: {fileID: 0}
+--- !u!4 &400062
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100062}
+  m_LocalRotation: {x: 0, y: -.707106829, z: 0, w: .707106829}
+  m_LocalPosition: {x: -8.99039208e-08, y: .725978613, z: .754168868}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400060}
 --- !u!54 &5400000
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -889,6 +917,7 @@ MonoBehaviour:
   gravity: 15
   swipeUp: .100000001
   swipeDown: -.100000001
+  inputDampener: .5
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -900,6 +929,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79ff5ec978a3564186d0b830b38af5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11400004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7add0f7406cc17f44a89f6819f80a026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obj: {fileID: 100000, guid: d1133720ffa5238458130b60c727b85f, type: 2}
+  pooledAmount: 20
 --- !u!136 &13600000
 CapsuleCollider:
   m_ObjectHideFlags: 1

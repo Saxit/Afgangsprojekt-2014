@@ -11,7 +11,12 @@ public class IsGameOver : MonoBehaviour {
             Application.LoadLevel("LvlTrainWorld");
             Debug.Log("Yay!");
         }
-        else if (other.gameObject.tag == "Bullet")
+        else if (other.gameObject.tag == "Projectile")
+        {
+            Application.LoadLevel("LvlTrainWorld");
+            Debug.Log("Boo!");
+        }
+        else if (other.gameObject.tag == "Enemy")
         {
             Application.LoadLevel("LvlTrainWorld");
             Debug.Log("Boo!");

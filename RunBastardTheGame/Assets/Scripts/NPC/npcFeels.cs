@@ -4,23 +4,21 @@ using System.Collections;
 public class npcFeels : MonoBehaviour {
 
     public bool NpcJump { get; set; }
-    public CapsuleCollider _col;
+    public bool NpcHit { get; set; }
 
-    void Awake()
-    {
-        _col = this.gameObject.GetComponent<CapsuleCollider>();
-        
-    }
-    
     void OnTriggerEnter(Collider other)
     {
 
         if (other.gameObject.tag == "JumpPoint")
         {
             NpcJump = true;
-            //Debug.Log("WHEEE!!");
         }
 
+        if (other.gameObject.tag == "Projectile")
+        {
+            
+            NpcHit = true;
+        }
     }
 
 }

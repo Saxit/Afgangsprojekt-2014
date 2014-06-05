@@ -6,12 +6,15 @@ public class EnemyAI : MonoBehaviour {
 
     public float jumpForce = 10f;
     public float gravity = 15f;
+    public float timeBetweenShots = 0.5f;
 
     private State _state;
     public npcSight _sight;
     public npcFeels _feels;
     private Transform _player;
     private Animator _anim;
+    private SpawnBullets _spawnBullets;
+    private bool _isWaiting;
 
 	// Use this for initialization
 	IEnumerator Start () {
@@ -51,24 +54,37 @@ public class EnemyAI : MonoBehaviour {
         _sight = this.transform.GetComponentInChildren<npcSight>();
         _feels = this.transform.GetComponentInChildren<npcFeels>();
         _anim = this.transform.GetComponentInChildren<Animator>();
+        _spawnBullets = this.transform.GetComponentInChildren<SpawnBullets>();
         _player = GameObject.FindGameObjectWithTag("Player").transform;
+        _isWaiting = false;
         _state = State.Walk;
     }
 
     private void Walk()
     {
         //Debug.Log("Enemy Walk");
-
-        if(_sight.playerInSight)
+        if (!CheckForDeath())
         {
-            Debug.Log("set");
-            _anim.SetBool("PlayerSeen", true);
-            _state = State.Attack;
+            if(_sight.playerInSight)
+            {
+                //Debug.Log("set");
+                _anim.SetBool("PlayerSeen", true);
+                _state = State.Attack;
+            }
+            else if(!_sight.playerInSight)
+            {
+                _anim.SetBool("PlayerSeen", false);
+            }
+            
+            if(_feels.NpcJump)
+            {
+                _feels.NpcJump = false;
+                _state = State.Jump;
+            }
         }
-        if(_feels.NpcJump)
+        else
         {
-            _feels.NpcJump = false;
-            _state = State.Jump;
+            _state = State.Die;
         }
 
     }
@@ -76,33 +92,66 @@ public class EnemyAI : MonoBehaviour {
     private void Jump()
     {
         Debug.Log("Enemy Jump");
-
-        StartCoroutine(WaitForDoubleJump());
-        
-        _state = State.Walk;
+        if (!CheckForDeath())
+        { 
+            StartCoroutine(WaitForDoubleJump());
+            _state = State.Walk;
+        }
+        else
+        {
+            _state = State.Die;
+        }
     }
 
     private void Attack()
     {
-        //Debug.Log("Enemy Attack");
-        if(_sight.playerInSight)
-        {
-            _anim.applyRootMotion = false;
-            Debug.Log("BANG!");
+        if (!CheckForDeath())
+        { 
+        
+            //Debug.Log("Enemy Attack");
+            if(_sight.playerInSight)
+            {
+                _anim.applyRootMotion = false;
+                if (!_isWaiting)
+                {
+                    _isWaiting = true;
+                    _spawnBullets.Spawn();
+                    StartCoroutine(WaitForNextShot());
+
+                }
+            }
+            else
+            {
+                _state = State.Walk;
+                _anim.applyRootMotion = true;
+            }
         }
         else
         {
-            _state = State.Walk;
-            _anim.applyRootMotion = true;
+            _state = State.Die;
         }
+        
     }
 	
     private void Die()
     {
         Debug.Log("Enemy Dies");
+        
         this.gameObject.SetActive(false);
+
     }
 
+
+    private bool CheckForDeath()
+    {
+        bool dead = false;
+        if(_feels.NpcHit == true) 
+        {
+            dead = true;
+            _feels.NpcHit = false;
+        }
+        return dead;
+    }
 
     IEnumerator WaitForDoubleJump()
     {
@@ -111,6 +160,13 @@ public class EnemyAI : MonoBehaviour {
         yield return new WaitForSeconds(1.2f);
         rigidbody.AddForce(Vector3.up * (jumpForce * 1.5f));
         Debug.Log("hop");
+    }
+
+    IEnumerator WaitForNextShot()
+    {
+        yield return new WaitForSeconds(timeBetweenShots);
+        _isWaiting = false;
+
     }
 
     public enum State

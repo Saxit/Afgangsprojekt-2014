@@ -1,19 +1,15 @@
 using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(SphereCollider))]
 public class npcSight : MonoBehaviour {
 
     public bool playerInSight;
-
-    private SphereCollider _col;
     public  GameObject _player;
 
 
 
     void Awake()
     {
-        _col = GetComponent<SphereCollider>();
         _player = GameObject.Find("CollisionObj");
     }
 
