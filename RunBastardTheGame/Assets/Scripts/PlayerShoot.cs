@@ -4,8 +4,7 @@ using System.Collections.Generic;
 
 public class PlayerShoot : MonoBehaviour
 {
-    //public Rigidbody projectile;
-    public Transform shooterPos;
+
 
     public GameObject obj;              //Listen over mulige spawnobjekter
     public float pooledAmount = 20;     //Max antal objekter i listen
@@ -20,11 +19,11 @@ public class PlayerShoot : MonoBehaviour
     {
         Vector3 endPos = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - 30);
         
-        if (Input.GetButtonUp("Fire1"))
+        if (Input.GetButtonUp("Jump"))
         {
-            GameObject bullet = Spawn();            
+            Spawn();            
             
-            bullet.transform.position = Vector3.Lerp(this.transform.position, endPos, Time.deltaTime);
+            
         }
     }
 
@@ -43,22 +42,18 @@ public class PlayerShoot : MonoBehaviour
 
     }
 
-    private GameObject Spawn()
+    private void Spawn()
     {
-
-        GameObject isActive = null;
+        
         for (int i = 0; i < list.Count; i++)
         {
             if (!list[i].activeInHierarchy)
             {
                 list[i].transform.position = this.transform.position;
                 list[i].transform.position = this.transform.position;
-                list[i].SetActive(true);
-                isActive = list[i];
-                break;
-                
+                list[i].SetActive(true);                
+                break;                
             }
-        }
-        return isActive;
+        }       
     }
 }

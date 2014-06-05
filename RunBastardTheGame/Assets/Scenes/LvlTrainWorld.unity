@@ -237,7 +237,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: 340a98f6bb9ab434c9a9a1df52dd03ae, type: 2}
       propertyPath: m_ApplyRootMotion
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 340a98f6bb9ab434c9a9a1df52dd03ae, type: 2}
@@ -321,7 +321,7 @@ Animator:
   m_Avatar: {fileID: 9000000, guid: 40d7742f29e94024bb7a21ba1770cd1e, type: 3}
   m_Controller: {fileID: 9100000, guid: 85e93d3028baaa944894c8fe4c80ab21, type: 2}
   m_CullingMode: 1
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_AnimatePhysics: 0
   m_HasTransformHierarchy: 1
 --- !u!4 &206543276
@@ -339,6 +339,7 @@ Transform:
   - {fileID: 651993112}
   - {fileID: 1698687301}
   - {fileID: 1898290948}
+  - {fileID: 610348626}
   m_Father: {fileID: 0}
 --- !u!1 &207568790
 GameObject:
@@ -785,6 +786,46 @@ Transform:
   m_Children:
   - {fileID: 464531326}
   m_Father: {fileID: 0}
+--- !u!1 &610348625
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 610348626}
+  - 114: {fileID: 610348627}
+  m_Layer: 0
+  m_Name: ShotPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &610348626
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 610348625}
+  m_LocalRotation: {x: 0, y: -.707106829, z: 0, w: .707106829}
+  m_LocalPosition: {x: -8.99038923e-08, y: 1.17773962, z: .75416863}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 206543276}
+--- !u!114 &610348627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 610348625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7add0f7406cc17f44a89f6819f80a026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obj: {fileID: 100000, guid: d1133720ffa5238458130b60c727b85f, type: 2}
+  pooledAmount: 20
 --- !u!1 &651993111
 GameObject:
   m_ObjectHideFlags: 0
