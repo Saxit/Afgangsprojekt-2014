@@ -18,8 +18,8 @@ public class SpawnScriptDistance : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        PoolSpawns();
-        Spawn();
+        FillPool();
+        SpawnPlatform();
     
 	}
 
@@ -40,7 +40,7 @@ public class SpawnScriptDistance : MonoBehaviour {
             {
                 Debug.Log(distance.ToString());
                 //spawn nyt objekt
-                Spawn();
+                SpawnPlatform();
             }
         }
         else
@@ -55,6 +55,9 @@ public class SpawnScriptDistance : MonoBehaviour {
 
 	}
 
+    /// <summary>
+    /// Kontrollerer om alle banens platforme er blevet spawnet.
+    /// </summary>
     private void isAllObjectsSpawned()
     {
         if (numberOfObjectsToSpawn == _spawnedObjects)
@@ -66,7 +69,7 @@ public class SpawnScriptDistance : MonoBehaviour {
     /// <summary>
     /// Sæt alle platformtyper til inaktive.
     /// </summary>
-    private void PoolSpawns()
+    private void FillPool()
     {
         //Debug.Log("poolspawns");
         list = new List<GameObject>();
@@ -89,7 +92,7 @@ public class SpawnScriptDistance : MonoBehaviour {
     /// <summary>
     /// Vælger et tilfældigt inaktiv objekt fra listen, og sætter den til aktiv.
     /// </summary>
-    private void Spawn()
+    private void SpawnPlatform()
     {
         //Debug.Log("spawn");
         bool found = false;
@@ -118,11 +121,12 @@ public class SpawnScriptDistance : MonoBehaviour {
     }
 
     /// <summary>
-    /// Spawner det unikke objekt, og sætter slutvariablen.
+    /// Spawner det unikke objekt. Og slukker for spawnobjektet
     /// </summary>
     private void SpawnUnique()
     {
         Instantiate(uniqueObject, transform.position, Quaternion.identity);
+        this.gameObject.SetActive(false);
     }
 
 }

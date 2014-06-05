@@ -18,25 +18,27 @@ public class PlayerScript : MonoBehaviour {
     private static int _slideState = Animator.StringToHash("Base Layer.Slide");
     private static int _doubleJumpState = Animator.StringToHash("Base Layer.DoubleJump");
     private static int _runState = Animator.StringToHash("Base Layer.Run");
-    private int _swipecount = 0;
+    private bool _isGrounded = false;
+    private bool _isJumping = false;
+    private bool _isDoubleJumping = false;
 
 
 	// Use this for initialization
 	void Start () {
 		_anim = GetComponent<Animator>();                                                   //Cache Animator komponenten
         _psysCol = GetComponent<CapsuleCollider>();                                         //Cache fysik collideren
-        _body = GetComponent<Rigidbody>();                                        //Cache rigidbody
+        _body = GetComponent<Rigidbody>();                                                  //Cache rigidbody
         _collisionCol = GameObject.Find("CollisionObj").GetComponent<CapsuleCollider>();     //Cache trigger collideren
 
 
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
         _currentBaseState = _anim.GetCurrentAnimatorStateInfo(0);                           //Sæt den aktive tilstandsværdi 
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);    //Sikrer at GameObjektet aldrig afviger fra 0 på Z-aksen
-        //_body.velocity = Vector3.right * 4.0f;
 
+        
 
 #if UNITY_ANDROID   //Hvis spillet afvikles på en Android maskine
         SwipeControls();
@@ -59,7 +61,7 @@ public class PlayerScript : MonoBehaviour {
     {
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
         {
-            _swipecount = Input.touchCount;
+
             //Find bevægelsen fra sidste frame til nu
             Vector2 deltaTouchPos = Input.GetTouch(0).deltaPosition;
             //Debug.Log("DeltaPos: " + Input.GetTouch(0).deltaPosition.y.ToString() + " SwipeY: " + swipeUp.ToString());
@@ -75,6 +77,7 @@ public class PlayerScript : MonoBehaviour {
             //hvis swipet er opadgående, og spilleren i forvejen i luften
             else if(deltaTouchPos.y > swipeUp && _currentBaseState.nameHash == _jumpState)
             {
+                
                 Jump();
                 _anim.SetTrigger("DoubleJump"); //Opdaterer animatoren
                 _demoText = "Double Jump";
@@ -101,7 +104,6 @@ public class PlayerScript : MonoBehaviour {
         ////Jumping
         if (Input.GetButtonDown("Fire1") && _currentBaseState.nameHash == _runState)
         {
-            
             _anim.SetTrigger("JumpParam");
             _demoText = "Jump";
             Jump();
@@ -119,7 +121,7 @@ public class PlayerScript : MonoBehaviour {
         else if (Input.GetButtonDown("Fire2") && _currentBaseState.nameHash == _runState)
         {
             _demoText = "Duck";
-            _anim.SetTrigger("SlideParam");
+            //_anim.SetTrigger("SlideParam");
             Slide();
             StartCoroutine(WaitForSlide());
         }
@@ -178,8 +180,10 @@ public class PlayerScript : MonoBehaviour {
     {
         Vector2 pos = Camera.main.ScreenToViewportPoint(this.transform.position);
 
+        string text = "Grounded: " + _isGrounded.ToString() + " - " + "Jumping: " + _isJumping.ToString() + " - " + "_isDoubleJumping: " + _isDoubleJumping.ToString();
 
-        GUI.Label(new Rect(pos.x, pos.y, 200, 30), _swipecount.ToString());
+        GUI.Label(new Rect(pos.x, pos.y, 200, 30), _demoText.ToString());
+        GUI.Label(new Rect(pos.x, pos.y + 30, 300, 300), text.ToString());
         //Debug.Log(pos.y);
 
     }
