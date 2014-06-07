@@ -16,7 +16,6 @@ public class EnemyAI : MonoBehaviour {
     private SpawnBullets _spawnBullets;
     private bool _isWaiting;
 
-	// Use this for initialization
 	IEnumerator Start () {
         _state = State.Init;
 
