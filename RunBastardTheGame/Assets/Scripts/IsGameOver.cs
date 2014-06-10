@@ -8,7 +8,7 @@ public class IsGameOver : MonoBehaviour {
     {
         if (other.gameObject.tag == "LevelEnd")
         {
-            Application.LoadLevel("LvlTrainWorld");
+            Application.LoadLevel("MainMenu");
             Debug.Log("Yay!");
         }
         else if (other.gameObject.tag == "Projectile")
@@ -18,7 +18,7 @@ public class IsGameOver : MonoBehaviour {
         }
         else if (other.gameObject.tag == "Enemy")
         {
-            Application.LoadLevel("LvlTrainWorld");
+            Application.LoadLevel("MainMenu");
             Debug.Log("Boo!");
         }
     }

@@ -246,10 +246,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 300
-  gravity: 15
   swipeUp: .100000001
   swipeDown: -.100000001
-  inputDampener: .5
 --- !u!54 &206543274
 Rigidbody:
   m_ObjectHideFlags: 0
