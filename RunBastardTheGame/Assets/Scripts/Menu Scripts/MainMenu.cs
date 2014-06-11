@@ -34,6 +34,7 @@ public class MainMenu : MonoBehaviour {
             Destroy(SoundManager);
             Debug.Log("New game / Continue");
             audio.PlayOneShot(buttonClick);
+            Application.LoadLevel("LvlTrainWorld");
             
         }
             

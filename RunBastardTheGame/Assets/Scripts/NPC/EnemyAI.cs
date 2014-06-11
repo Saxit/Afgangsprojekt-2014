@@ -65,6 +65,7 @@ public class EnemyAI : MonoBehaviour {
     /// </summary>
     private void Walk()
     {
+        Debug.Log("walk");
         //Se om NPC er blevet ramt af projektil
         if (!CheckForDeath())
         {
@@ -94,7 +95,7 @@ public class EnemyAI : MonoBehaviour {
     /// </summary>
     private void Jump()
     {
-        
+        Debug.Log("jump");
         if (!CheckForDeath())
         { 
             StartCoroutine(WaitForDoubleJump());    //Start jump-coroutine
@@ -111,6 +112,7 @@ public class EnemyAI : MonoBehaviour {
     /// </summary>
     private void Attack()
     {
+        Debug.Log("attack");
         if (!CheckForDeath())
         { 
         
@@ -146,6 +148,7 @@ public class EnemyAI : MonoBehaviour {
     /// </summary>
     private void Die()
     {
+        Debug.Log("die");
         this.gameObject.SetActive(false); //Sæt NPC til inaktiv, hvorefter han igen indgår i spawn pool
     }
 

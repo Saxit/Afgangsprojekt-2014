@@ -246,10 +246,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 300
-  gravity: 15
   swipeUp: .100000001
   swipeDown: -.100000001
-  inputDampener: .5
 --- !u!54 &206543274
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -882,7 +880,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: dca462b93dd9e9c45b2e243ab49ed58c, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -4.85684061
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: dca462b93dd9e9c45b2e243ab49ed58c, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1367,7 +1365,7 @@ Transform:
   m_PrefabInternal: {fileID: 682371520}
   m_GameObject: {fileID: 1249306886}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -100, y: -4.85684061, z: -63.8822327}
+  m_LocalPosition: {x: -100, y: 2, z: -63.8822327}
   m_LocalScale: {x: .200000003, y: 15, z: 20}
   m_Children: []
   m_Father: {fileID: 994480677}
@@ -1818,8 +1816,8 @@ Transform:
   m_PrefabInternal: {fileID: 1743555075}
   m_GameObject: {fileID: 1476404131}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.78566456, y: -9, z: -65.1323929}
-  m_LocalScale: {x: 30, y: 1, z: 10}
+  m_LocalPosition: {x: 0, y: -9, z: -65.1323929}
+  m_LocalScale: {x: 3000, y: 1, z: 10}
   m_Children: []
   m_Father: {fileID: 994480677}
 --- !u!114 &1476404136
@@ -2176,7 +2174,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: 82da2ddffcf8ade4c9d9a822d441758a, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 6.78566456
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 82da2ddffcf8ade4c9d9a822d441758a, type: 2}
       propertyPath: m_LocalPosition.y
@@ -2209,6 +2207,10 @@ Prefab:
     - target: {fileID: 100000, guid: 82da2ddffcf8ade4c9d9a822d441758a, type: 2}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 82da2ddffcf8ade4c9d9a822d441758a, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 3000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 82da2ddffcf8ade4c9d9a822d441758a, type: 2}
